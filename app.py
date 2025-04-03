@@ -77,7 +77,7 @@ def init_connection():
         host="localhost",
         user="root",
         password="sirajfaraZ5$",  # Replace with your MySQL password
-        database="aircraft_maintenance_db"
+        database="aircraftmaintenancedb"
     )
 
 # Function to execute queries
@@ -410,33 +410,24 @@ def inventory_management():
         df = pd.DataFrame(filtered_inventory)
         
         # Add selection capability and display
-        selected_rows = st.dataframe(
+        # Display the dataframe without selection option
+        st.dataframe(
             df,
-            column_config={
-                "part_id": None,  # Hide column
-                "part_number": "Part Number",
-                "description": "Description",
-                "category": "Category",
-                "in_stock": "In Stock",
-                "threshold": "Threshold",
-                "location": "Location",
-                "status": st.column_config.Column(
-                    "Status",
-                    help="Stock status based on threshold",
-                    width="small"
-                )
-            },
             use_container_width=True,
-            hide_index=True,
-            selection="single"
+            hide_index=True
         )
+
+        # Add a separate selection mechanism
+        part_id_to_select = st.selectbox(
+            "Select a part to view details",
+            options=[part["part_id"] for part in filtered_inventory],
+            format_func=lambda x: next((p["part_number"] + ": " + p["description"] for p in filtered_inventory if p["part_id"] == x), "")
+        )
+
+        if part_id_to_select:
+            st.session_state.selected_part_id = part_id_to_select
         
-        # Handle row selection
-        if selected_rows:
-            selected_indices = selected_rows.get('selected_rows', [])
-            if selected_indices:
-                selected_index = selected_indices[0]
-                st.session_state.selected_part_id = df.iloc[selected_index]["part_id"]
+    
         
         # Part details (when clicking on a row)
         if st.session_state.selected_part_id:

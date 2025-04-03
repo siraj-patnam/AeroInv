@@ -21,7 +21,7 @@ def init_connection():
         host="localhost",
         user="root",
         password="sirajfaraZ5$",  # Replace with your actual password
-        database="aircraft_maintenance_db"
+        database="aircraftmaintenancedb"
     )
 
 # Function to execute queries

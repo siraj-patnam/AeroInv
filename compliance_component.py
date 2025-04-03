@@ -1,13 +1,6 @@
 # Compliance Component
 from shared_imports import *
-@st.cache_resource
-def init_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="your_mysql_password",  # Replace with your MySQL password
-        database="aircraft_maintenance_db"
-    )
+
 
 def pre_flight_analysis():
     st.title("Pre-Flight Analysis")
