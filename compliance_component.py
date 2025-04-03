@@ -1,6 +1,6 @@
 # Compliance Component
 from shared_imports import *
-
+from db import run_query, run_mutation
 
 def pre_flight_analysis():
     st.title("Pre-Flight Analysis")
@@ -83,7 +83,6 @@ def compliance():
                 },
                 use_container_width=True,
                 hide_index=True,
-                selection="single"
             )
             
             # Handle row selection for more details/actions
@@ -216,7 +215,6 @@ def compliance():
                     },
                     use_container_width=True,
                     hide_index=True,
-                    selection="single"
                 )
                 
                 # Handle row selection

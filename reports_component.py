@@ -1,5 +1,6 @@
 # Reports Component
 from shared_imports import *
+from db import run_query, run_mutation
 
 
 def reports():

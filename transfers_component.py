@@ -1,9 +1,8 @@
 # Transfers Component
 from shared_imports import *
+from db import run_query, run_mutation
 
-def pre_flight_analysis():
-    st.title("Pre-Flight Analysis")
-    # Rest of your code
+
 def transfers():
     st.title("Part Transfers")
     
@@ -71,10 +70,11 @@ def transfers():
             
             # Format datetime columns
             if 'transaction_time' in df.columns:
-                df['transaction_time'] = df['transaction_time'].apply(lambda x: x.strftime("%Y-%m-%d %H:%M") if x else "")
+                df['transaction_time'] = df['transaction_time'].apply(lambda x: x.strftime("%Y-%m-%d %H:%M") if pd.notna(x) else "")
             
             if 'completion_time' in df.columns:
-                df['completion_time'] = df['completion_time'].apply(lambda x: x.strftime("%Y-%m-%d %H:%M") if x else "")
+            
+                df['completion_time'] = df['completion_time'].apply(lambda x: x.strftime("%Y-%m-%d %H:%M") if pd.notna(x) else "")
             
             # Display the data
             st.dataframe(
@@ -94,7 +94,7 @@ def transfers():
                 },
                 use_container_width=True,
                 hide_index=True,
-                selection="single"
+    
             )
             
             # Handle row selection for more details/actions

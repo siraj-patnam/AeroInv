@@ -1,5 +1,6 @@
 # Pre-Flight Analysis
 from shared_imports import *
+from db import run_query, run_mutation
 
 def pre_flight_analysis():
     st.title("Pre-Flight Analysis")
@@ -22,7 +23,7 @@ def pre_flight_analysis():
     
     with col3:
         if st.button("Refresh"):
-            st.experimental_rerun()
+            st.rerun()
     
     # In a real application, this would query the Flight Schedule API
     # For prototype, use mock data
